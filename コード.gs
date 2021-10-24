@@ -14,16 +14,23 @@ function Task_Management() {
   const lastRow = SH.getLastRow();
   const lastColumn = SH.getLastColumn();
   // A-G列がタスク情報
-  const _taskInfo = SH.getRange(2, 1, lastRow, 7).getValues();
+  const taskList = SH.getDataRange().getValues();
   // タスク情報を（二次元配列から）オブジェクトへ変換
-  const taskInfo = createObj_(_taskInfo);
+  const taskInfo = createObj_(taskList);
+
   // 対象者とタスク対応状況の開始行と開始列を定義
-  const startRow = 1;
-  const startColumn = 7;
-  // メール送付の判定情報（対象者とタスク対応状況の表）を取得 G-J列
-  const mailInfo = SH.getRange(startRow, startColumn, lastRow, lastColumn - startColumn + 1).getValues();
+  // const startRow = 1;
+  // const startColumn = 7;
+  // // メール送付の判定情報（対象者とタスク対応状況の表）を取得 G-J列
+  // const mailInfo = SH.getRange(startRow, startColumn, lastRow, lastColumn - startColumn + 1).getValues();
+
+  // メール情報取得
+  const shMailTo = SS.getSheetByName('e-mail');
+  const mailList = shMailTo.getDataRange().getValues();
+
+
   // 対象者へ未対応タスクをまとめてメール通知
-  informTodoTask_(taskInfo, mailInfo);
+  informTodoTask_(taskInfo, taskList);
 }
 
 /**
