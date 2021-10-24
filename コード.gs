@@ -7,24 +7,22 @@ function Task_Management() {
     // 当日の日付取得
     const today = new Date();
     // 平日の場合のみ処理を実行
-    if(isWeekDay_(today)) {
-        // シートの各データ取得
-        const ss          = SpreadsheetApp.getActiveSpreadsheet();
-        const sh          = ss.getActiveSheet();
-        const lastRow     = sh.getLastRow();
-        const lastColumn  = sh.getLastColumn();
-        // A-G列がタスク情報
-        const _taskInfo   = sh.getRange(2, 1, lastRow, 7).getValues();
-        // タスク情報を（二次元配列から）オブジェクトへ変換
-        const taskInfo    = createObj_(_taskInfo);
-        // 対象者とタスク対応状況の開始行と開始列を定義
-        const startRow    = 1;
-        const startColumn = 7;
-        // メール送付の判定情報（対象者とタスク対応状況の表）を取得 G-J列
-        const mailInfo    = sh.getRange(startRow, startColumn, lastRow, lastColumn - startColumn + 1).getValues();
-        // 対象者へ未対応タスクをまとめてメール通知
-        informTodoTask_(taskInfo, mailInfo);
-    }   
+    if(!isWeekDay_(today)) return;
+
+    // シートの各データ取得
+    const lastRow     = SH.getLastRow();
+    const lastColumn  = SH.getLastColumn();
+    // A-G列がタスク情報
+    const _taskInfo   = SH.getRange(2, 1, lastRow, 7).getValues();
+    // タスク情報を（二次元配列から）オブジェクトへ変換
+    const taskInfo    = createObj_(_taskInfo);
+    // 対象者とタスク対応状況の開始行と開始列を定義
+    const startRow    = 1;
+    const startColumn = 7;
+    // メール送付の判定情報（対象者とタスク対応状況の表）を取得 G-J列
+    const mailInfo    = SH.getRange(startRow, startColumn, lastRow, lastColumn - startColumn + 1).getValues();
+    // 対象者へ未対応タスクをまとめてメール通知
+    informTodoTask_(taskInfo, mailInfo);
 }
 
 /**
