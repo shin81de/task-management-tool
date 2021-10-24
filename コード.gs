@@ -10,24 +10,10 @@ function Task_Management() {
   // テスト環境用にコメントアウト
   // if(!isWeekDay_(today)) return;
 
-  // シートの各データ取得
-  const lastRow = SH.getLastRow();
-  const lastColumn = SH.getLastColumn();
-  // A-G列がタスク情報
+  // シートの全データ取得
   const taskList = SH.getDataRange().getValues();
   // タスク情報を（二次元配列から）オブジェクトへ変換
   const taskInfo = createObj_(taskList);
-
-  // 対象者とタスク対応状況の開始行と開始列を定義
-  // const startRow = 1;
-  // const startColumn = 7;
-  // // メール送付の判定情報（対象者とタスク対応状況の表）を取得 G-J列
-  // const mailInfo = SH.getRange(startRow, startColumn, lastRow, lastColumn - startColumn + 1).getValues();
-
-  // メール情報取得
-  const shMailTo = SS.getSheetByName('e-mail');
-  const mailList = shMailTo.getDataRange().getValues();
-
 
   // 対象者へ未対応タスクをまとめてメール通知
   informTodoTask_(taskInfo, taskList);
@@ -78,20 +64,20 @@ function createObj_(array) {
  * @param {object[][]} 対象者のタスク対応状況 array 
  */
 function informTodoTask_(obj, array) {
+  const taskStates = array.map(row => row.slice(6));
+
   // 1列(c)ずつメンバーの未対応タスクをチェック
   // 1件でも未対応タスクあればメール送付
-  for (let c = 7; c < array[0].length; c++) {
+  for (let c = 1; c < taskStates[0].length; c++) {
     // mailInfo[0][c] 対象者のメアド
     // mailInfo[1][c] 対象者名
     // 未対応タスクを追記する変数
-    const todoTask = getTodoTask_(array, obj, c);
-    console.log(todoTask);
-    continue;
+    const todoTask = getTodoTask_(taskStates, obj, c);
 
     // 未対応タスクがあればメール通知 ※ todoTaskが空の場合はfalse
     if (!todoTask) continue;
 
-    sendEmail_(array, c, todoTask);
+    sendEmail_(taskStates, c, todoTask);
 
   }
 }
