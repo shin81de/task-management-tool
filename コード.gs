@@ -7,7 +7,8 @@ function Task_Management() {
     // 当日の日付取得
     const today = new Date();
     // 平日の場合のみ処理を実行
-    if(!isWeekDay_(today)) return;
+    // テスト環境用にコメントアウト
+    // if(!isWeekDay_(today)) return;
 
     // シートの各データ取得
     const lastRow     = SH.getLastRow();
@@ -76,17 +77,8 @@ function informTodoTask_(obj, array) {
         // mailInfo[0][c] 対象者のメアド
         // mailInfo[1][c] 対象者名
         // 未対応タスクを追記する変数
-        let todoTask = '';
-        // 1行(r)ずつ未対応タスクをチェックしてtodoTaskにタスク情報をセット
-        for(let r = 3; r < array.length; r++) {
-            // mailInfo[r][0] 管理番号
-            // 管理番号がオブジェクトの中にあり、
-            // かつ未対応であれば変数todoTaskにタスク情報をセット
-            if(obj[array[r][0]] && array[r][c] === '未') {
-                // 未対応タスクのTo_Do_Task、締切日、残日数をセット
-                todoTask += `${obj[array[r][0]]['task_name']} ${obj[array[r][0]]['deadline']} ${obj[array[r][0]]['remainingDays']} \n`;
-            }
-        }
+        const todoTask = getTodoTask_(array, obj, c);
+
         // 未対応タスクがあればメール通知 ※ todoTaskが空の場合はfalse
         if(todoTask) {
             // 必要情報を準備してメール通知
@@ -99,4 +91,22 @@ function informTodoTask_(obj, array) {
             GmailApp.sendEmail(mailTo, mailTitle, mailBody);
         }
     }
+}
+
+
+function getTodoTask_(array, obj, c) {
+  let todoTask = '';
+
+  // 1行(r)ずつ未対応タスクをチェックしてtodoTaskにタスク情報をセット
+  for(let r = 3; r < array.length; r++) {
+      // mailInfo[r][0] 管理番号
+      // 管理番号がオブジェクトの中にあり、
+      // かつ未対応であれば変数todoTaskにタスク情報をセット
+      if(obj[array[r][0]] && array[r][c] === '未') {
+          // 未対応タスクのTo_Do_Task、締切日、残日数をセット
+          todoTask += `${obj[array[r][0]]['task_name']} ${obj[array[r][0]]['deadline']} ${obj[array[r][0]]['remainingDays']} \n`;
+      }
+  }
+
+  return todoTask;
 }
