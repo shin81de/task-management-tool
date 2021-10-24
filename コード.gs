@@ -80,11 +80,13 @@ function createObj_(array) {
 function informTodoTask_(obj, array) {
   // 1列(c)ずつメンバーの未対応タスクをチェック
   // 1件でも未対応タスクあればメール送付
-  for (let c = 1; c < array[0].length; c++) {
+  for (let c = 7; c < array[0].length; c++) {
     // mailInfo[0][c] 対象者のメアド
     // mailInfo[1][c] 対象者名
     // 未対応タスクを追記する変数
     const todoTask = getTodoTask_(array, obj, c);
+    console.log(todoTask);
+    continue;
 
     // 未対応タスクがあればメール通知 ※ todoTaskが空の場合はfalse
     if (!todoTask) continue;
@@ -106,7 +108,7 @@ function getTodoTask_(array, obj, c) {
   let todoTask = '';
 
   // 1行(r)ずつ未対応タスクをチェックしてtodoTaskにタスク情報をセット
-  for (let r = 3; r < array.length; r++) {
+  for (let r = 2; r < array.length; r++) {
     // mailInfo[r][0] 管理番号
     // 管理番号がオブジェクトの中にあり、
     // かつ未対応であれば変数todoTaskにタスク情報をセット
