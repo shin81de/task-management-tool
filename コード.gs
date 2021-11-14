@@ -69,17 +69,17 @@ function informTodoTask_(obj, array) {
   // 1列(c)ずつメンバーの未対応タスクをチェック
   // 1件でも未対応タスクあればメール送付
   for (let c = 1; c < taskStates[0].length; c++) {
-    // mailInfo[0][c] 対象者のメアド
-    // mailInfo[1][c] 対象者名
     // 未対応タスクを追記する変数
     const todoTask = getTodoTask_(taskStates, obj, c);
 
     // 未対応タスクがあればメール通知 ※ todoTaskが空の場合はfalse
     if (!todoTask) continue;
 
- 
-    Mail.sendEmail(taskStates, c, todoTask);
-    // sendEmail_(taskStates, c, todoTask);
+    const name = taskStates[0][c];
+    console.log('name', name);
+    const mail = new Mail(name);
+    console.log('mail', mail);
+    mail.sendEmail(todoTask);
 
   }
 }

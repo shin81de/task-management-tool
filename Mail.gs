@@ -12,13 +12,16 @@ class Mail {
   getAddressByWorkerName(name) {
     const values = SH_EMAILS.getDataRange().getValues();
     const header = values.shift();
+    console.log('values', values);
     const row = values.find(row => row[0] === name);
+    console.log('row',row);
     return row[1];
   }
 
   sendEmail(todoTask) {
     const mailBody = this.buildBody(todoTask);
-    GmailApp.sendEmail(this.mailTo, this.mailTitle, mailBody);
+    console.log('mailBody', mailBody);
+    // GmailApp.sendEmail(this.mailTo, this.mailTitle, mailBody);
 
   }
 
