@@ -107,8 +107,6 @@ function getTodoTask_(array, obj, c) {
   return todoTask;
 }
 
-
-
 function sendEmail_(array, c, todoTask) {
   // 必要情報を準備してメール通知
   const mailTo = array[0][c];
