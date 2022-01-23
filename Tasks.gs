@@ -28,10 +28,40 @@ class Tasks {
 
   }
 
-  getTodoTasks_() {
+  getTaskStates() {
     const sheet = SS.getSheetByName('tasks');
     const values = sheet.getDataRange().getValues();
     const taskStates = values.map(row => row.slice(6));
+    return taskStates;
+  }
+
+  getTodoTasks_() {
+
+    // 元データ：taskStates
+    // [ [ '管理番号', 'Bob', 'Tom', 'Ivy' ],
+    //   [ '', '済', '済', '済' ],
+    //   [ 'A001', '未', '対象外', '対象外' ],
+    //   [ 'A002', '未', '未', '未' ],
+    //   [ 'A003', '未', '未', '未' ],
+    //   [ 'A004', '済', '未', '対象外' ],
+    //   [ 'A005', '未', '未', '未' ],
+    //   [ '', '', '', '' ] ]
+
+    // 目標：todoTasks
+    // [
+    //    {name: 'Bob',   todos: [A001, A002, A003]},
+    //    {name: 'Tom',   todos: [A001, A002, A003]},
+    //    {name: 'Ivy',   todos: [A001, A002, A003]}
+    // ]
+
+    const taskStates = this.getTaskStates();
+    const header = taskStates.shift();
+    const names = header.slice(1);
+
+    const todoTasks = {};
+
+
+
 
     console.log(taskStates);
   }
@@ -89,6 +119,11 @@ class Tasks {
 function objDataTest() {
   const objData = new Tasks().createObj_();
   console.log(objData);
+}
+
+function getTaskStatesTest() {
+  const tasks = new Tasks();
+  console.log(tasks.getTaskStates_());
 }
 
 function getTodoTasksTest() {
