@@ -6,24 +6,13 @@ class Mail {
   }
 
 
-  /**
-   * 名前をキーにして、アドレスを取得するメソッド
-   */
-  getAddressByWorkerName(name) {
-    const values = SH_EMAILS.getDataRange().getValues();
-    const header = values.shift();
-    console.log('values', values);
-    const row = values.find(row => row[0] === name);
-    console.log('row',row);
-    return row[1];
-  }
-
   sendEmail(todoTask) {
     const mailBody = this.buildBody(todoTask);
     console.log('mailBody', mailBody);
     // GmailApp.sendEmail(this.mailTo, this.mailTitle, mailBody);
 
   }
+  
 
   buildBody(todoTask) {
     const now = Utilities.formatDate(new Date(), 'JST', 'yyyy/mm/dd HH:mm');
