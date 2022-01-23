@@ -37,27 +37,12 @@ class Tasks {
 
   getTodoTasks_() {
 
-    // 元データ：taskStates
-    // [ [ '管理番号', 'Bob', 'Tom', 'Ivy' ],
-    //   [ '', '済', '済', '済' ],
-    //   [ 'A001', '未', '対象外', '対象外' ],
-    //   [ 'A002', '未', '未', '未' ],
-    //   [ 'A003', '未', '未', '未' ],
-    //   [ 'A004', '済', '未', '対象外' ],
-    //   [ 'A005', '未', '未', '未' ],
-    //   [ '', '', '', '' ] ]
-
     // 目標：todoTasks
     // [
     //    {name: 'Bob',   todos: [A001, A002, A003]},
     //    {name: 'Tom',   todos: [A001, A002, A003]},
     //    {name: 'Ivy',   todos: [A001, A002, A003]}
     // ]
-
-    //	[ [ '管理番号', '', 'A001', 'A002', 'A003', 'A004', 'A005', '' ],
-    // [ 'Bob', '済', '未', '未', '未', '未', '未', '' ],
-    // [ 'Tom', '済', '対象外', '未', '未', '未', '未', '' ],
-    // [ 'Ivy', '済', '対象外', '未', '未', '対象外', '未', '' ] ]
 
     const taskStates = this.getTaskStates_();
     const trsTaskStates = taskStates[0].map((_, i) => taskStates.map(row => row[i]));
@@ -76,20 +61,9 @@ class Tasks {
       };
       results.push(obj);
     }
-    console.log(results);
-    return;
-    
 
+    return results;
 
-    const [header, ...values] = taskStates;
-    const names = header.slice(1);
-
-
-
-
-
-
-    console.log(taskStates);
   }
 
 

@@ -109,15 +109,15 @@ function getTodoTask_(array, obj, c) {
   return todoTask;
 }
 
-// function sendEmail_(array, c, todoTask) {
-//   // 必要情報を準備してメール通知
-//   const mailTo = array[0][c];
-//   const targetName = array[1][c];
-//   const mailTitle = '未完了タスクのお知らせ';
-//   const now = Utilities.formatDate(new Date(), 'JST', 'yyyy/mm/dd HH:mm');
-//   const mailHeader = `※${now}時点の案件対応状況についてお知らせします。空き時間に取組みましょう。`;
-//   const mailBody = `${mailHeader}\n${targetName}さん\n\n${todoTask}`;
+function sendEmail_(array, c, todoTask) {
+  // 必要情報を準備してメール通知
+  const mailTo = array[0][c];
+  const targetName = array[1][c];
+  const mailTitle = '未完了タスクのお知らせ';
+  const now = Utilities.formatDate(new Date(), 'JST', 'yyyy/mm/dd HH:mm');
+  const mailHeader = `※${now}時点の案件対応状況についてお知らせします。空き時間に取組みましょう。`;
+  const mailBody = `${mailHeader}\n${targetName}さん\n\n${todoTask}`;
 
-//   console.log(mailTo, mailTitle, mailBody);
-//   // GmailApp.sendEmail(mailTo, mailTitle, mailBody);
-// }
+  console.log(mailTo, mailTitle, mailBody);
+  // GmailApp.sendEmail(mailTo, mailTitle, mailBody);
+}

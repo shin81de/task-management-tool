@@ -14,12 +14,12 @@ class Mail {
   }
   
 
-  buildBody(todoTask) {
-    const now = Utilities.formatDate(new Date(), 'JST', 'yyyy/mm/dd HH:mm');
-    const mailHeader = `※${now}時点の案件対応状況についてお知らせします。空き時間に取組みましょう。`;
-    const mailBody = `${mailHeader}\n${this.name}さん\n\n${todoTask}`;
-    return mailBody;
-  }
+  // buildBody(todoTask) {
+  //   const now = Utilities.formatDate(new Date(), 'JST', 'yyyy/mm/dd HH:mm');
+  //   const mailHeader = `※${now}時点の案件対応状況についてお知らせします。空き時間に取組みましょう。`;
+  //   const mailBody = `${mailHeader}\n${this.name}さん\n\n${todoTask}`;
+  //   return mailBody;
+  // }
 }
 
 function mailTester() {
