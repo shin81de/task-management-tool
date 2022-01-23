@@ -4,6 +4,7 @@ class Tasks {
   }
 
   createObj_() {
+
     // タスク情報格納用のオブジェクト
     const sheet = SS.getSheetByName('tasks');
     const values = sheet.getDataRange().getValues();
@@ -21,6 +22,28 @@ class Tasks {
       }
     }
     return taskInfoObj;
+    /*
+    { A001: 
+   { task_name: 'タスク管理ツールの作成',
+     deadline: '2021/10/20',
+     remainingDays: 'あと-95日' },
+  A002: 
+   { task_name: '見込み顧客リストの作成',
+     deadline: '2021/10/25',
+     remainingDays: 'あと-90日' },
+  A003: 
+   { task_name: '電話でアポ取得',
+     deadline: '2021/10/31',
+     remainingDays: 'あと-84日' },
+  A004: 
+   { task_name: 'アポ先顧客情報の抽出',
+     deadline: '2021/11/07',
+     remainingDays: 'あと-77日' },
+  A005: 
+   { task_name: '見込み先へセールス',
+     deadline: '2021/11/30',
+     remainingDays: 'あと-54日' } }
+    */
   }
 
   getToDosByUserName(name) {
@@ -52,7 +75,7 @@ class Tasks {
     for (const taskState of trsTaskStates) {
       const [name, ...states] = taskState;
       const toDos = taskState.map((state, i) => {
-        if(state === '未') return header1[i];
+        if (state === '未') return header1[i];
       }).filter(el => el !== undefined);
 
       const obj = {

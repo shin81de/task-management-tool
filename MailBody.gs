@@ -1,9 +1,12 @@
 class MailBody {
-  constructor(name, todoTasks, taskInfoObj) {
-    this.mailBody = this.buildBody_(name, todoTasks, taskInfoObj);
+  constructor(name) {
+    this.mailBody = this.buildBody_(name);
   }
 
-  buildBody_(name, todoTasks, taskInfoObj) {
+  buildBody_(name) {
+    const tasks = new Tasks();
+    const todoTasks = tasks.getTodoTasks_();
+    const taskInfoObj = tasks.tasks;
 
     // 目標
     // ※2022/01/22 23:00時点の案件対応状況についてお知らせします。空き時間に取組みましょう。
@@ -17,22 +20,23 @@ class MailBody {
     const now = Utilities.formatDate(new Date(), 'JST', 'yyyy/mm/dd HH:mm');
     const mailHeader = `※${now}時点の案件対応状況についてお知らせします。空き時間に取組みましょう。`;
 
-    const todos = todoTasks.filter(v => v.name === name);
-    console.log(todos);
-    const mailTodos = '';
-  
+    const taskIds = todoTasks.filter(v => v.name === name)[0].todos;
+    // console.log(todos);
 
-    const mailBody = `${mailHeader}\n${name}さん\n\n${mailTodos}`;
+    const strTodoInfos = taskIds.map(taskId => {
+      const obj = taskInfoObj[taskId];
+      return `${obj.task_name} ${obj.deadline} ${obj.remainingDays}\n`;
+    });
+    // console.log(strTodoInfos);
+
+    const mailBody = `${mailHeader}\n${name}さん\n\n${strTodoInfos.join('')}`;
     return mailBody;
   }
 
 }
 
 function buildBodyTest() {
-  const tasks = new Tasks();
-  const taskInfoObj = tasks.tasks;
-  const todoTasks = tasks.getTodoTasks_();
-  // console.log(todoTasks);
 
-  const mailBody = new MailBody('Bob', todoTasks, taskInfoObj);
+  const mailBody = new MailBody('Bob');
+  console.log(mailBody.mailBody);
 }
