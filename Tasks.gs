@@ -28,7 +28,7 @@ class Tasks {
 
   }
 
-  getTaskStates() {
+  getTaskStates_() {
     const sheet = SS.getSheetByName('tasks');
     const values = sheet.getDataRange().getValues();
     const taskStates = values.map(row => row.slice(6));
@@ -59,20 +59,23 @@ class Tasks {
     // [ 'Tom', '済', '対象外', '未', '未', '未', '未', '' ],
     // [ 'Ivy', '済', '対象外', '未', '未', '対象外', '未', '' ] ]
 
-    const taskStates = this.getTaskStates();
+    const taskStates = this.getTaskStates_();
     const trsTaskStates = taskStates[0].map((_, i) => taskStates.map(row => row[i]));
-    console.log(trsTaskStates);
-    return;
+    const header1 = trsTaskStates.shift();
 
     for (const taskState of trsTaskStates) {
       const [name, ...states] = taskState;
+      const toDos = taskState.map(state => state === '未');
 
-      const obj = {
-        name: name,
-        todos: getTodos()
-      };
+      // const obj = {
+      //   name: name,
+      //   todos: getTodos()
+      // };
+      console.log(toDos);
 
     }
+    return;
+    
 
 
     const [header, ...values] = taskStates;
