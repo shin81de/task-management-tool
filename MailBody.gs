@@ -24,7 +24,9 @@ class MailBody {
     // console.log(todos);
 
     const strTodoInfos = taskIds.map(taskId => {
+
       const obj = taskInfoObj[taskId];
+      if(!obj) return; 
       return `${obj.task_name} ${obj.deadline} ${obj.remainingDays}\n`;
     });
     // console.log(strTodoInfos);

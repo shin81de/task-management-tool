@@ -1,3 +1,32 @@
+function main() {
+  // 当日の日付取得
+  const today = new Date();
+  // 平日の場合のみ処理を実行
+  // テスト環境用にコメントアウト
+  // if(!isWeekDay_(today)) return;
+  
+  // ここでユーザクラスを
+  const users = new Users()
+
+  // ユーザ名をリストで取得する
+  const userNames = users.getUserNameList();
+
+  for (const userName of userNames) {
+    // ユーザごとのメアド取得
+    const email = users.getAddress(userName);
+
+    // ユーザごとのメールボディ作る
+    const mailBody = new MailBody(userName).mailBody;
+
+    // メールを作成して送信
+    const title = '未完了タスクのお知らせ';
+    console.log(email, title, mailBody);
+    return;
+    GmailApp.sendEmail(email, title, mailBody);
+  }
+}
+
+
 /**
  * 対象者へ未対応タスクをまとめてメール通知
  * 
