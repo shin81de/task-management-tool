@@ -54,11 +54,31 @@ class Tasks {
     //    {name: 'Ivy',   todos: [A001, A002, A003]}
     // ]
 
+    //	[ [ '管理番号', '', 'A001', 'A002', 'A003', 'A004', 'A005', '' ],
+    // [ 'Bob', '済', '未', '未', '未', '未', '未', '' ],
+    // [ 'Tom', '済', '対象外', '未', '未', '未', '未', '' ],
+    // [ 'Ivy', '済', '対象外', '未', '未', '対象外', '未', '' ] ]
+
     const taskStates = this.getTaskStates();
-    const header = taskStates.shift();
+    const trsTaskStates = taskStates[0].map((_, i) => taskStates.map(row => row[i]));
+    console.log(trsTaskStates);
+    return;
+
+    for (const taskState of trsTaskStates) {
+      const [name, ...states] = taskState;
+
+      const obj = {
+        name: name,
+        todos: getTodos()
+      };
+
+    }
+
+
+    const [header, ...values] = taskStates;
     const names = header.slice(1);
 
-    const todoTasks = {};
+
 
 
 
