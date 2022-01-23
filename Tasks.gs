@@ -63,17 +63,20 @@ class Tasks {
     const trsTaskStates = taskStates[0].map((_, i) => taskStates.map(row => row[i]));
     const header1 = trsTaskStates.shift();
 
+    const results = [];
     for (const taskState of trsTaskStates) {
       const [name, ...states] = taskState;
-      const toDos = taskState.map(state => state === '未');
+      const toDos = taskState.map((state, i) => {
+        if(state === '未') return header1[i];
+      }).filter(el => el !== undefined);
 
-      // const obj = {
-      //   name: name,
-      //   todos: getTodos()
-      // };
-      console.log(toDos);
-
+      const obj = {
+        name: name,
+        todos: toDos,
+      };
+      results.push(obj);
     }
+    console.log(results);
     return;
     
 
